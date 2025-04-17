@@ -133,7 +133,7 @@ export default function AppPreviewSection() {
       {/* Background Pattern with adjusted mask */}
       <DotPattern
         className={cn(
-          "absolute inset-0 opacity-30",
+          "absolute inset-0 opacity-40",
           "[mask-image:radial-gradient(800px_circle_at_50%_40%,white,transparent)]"
         )}
       />

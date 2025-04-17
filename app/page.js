@@ -7,6 +7,9 @@ import { FlickeringGrid } from "@/components/magicui/flickering-grid";
 import AppPreviewSection from "@/components/sections/AppPreviewSection";
 import AnalystSection from "@/components/sections/AnalystSection";
 import ValuePropositionSection from "@/components/sections/ValuePropositionSection";
+import EmailSubscribeSection from "@/components/sections/EmailSubscribeSection";
+import Footer from "@/components/Footer";
+import FaqSection from "@/components/sections/FaqSection";
 
 // Add these animation variants
 const backgroundAnimation = {
@@ -160,35 +163,6 @@ export default function Home() {
 
         <ValuePropositionSection featureCards={featureCards} />
 
-        {/* Features Section */}
-        <section className="bg-white py-20">
-          <div className="container mx-auto px-4">
-            <h2 className="text-3xl font-bold text-center mb-16">
-              Why Choose Stoxii?
-            </h2>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {features.map((feature, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="p-6 bg-gray-50 rounded-xl hover:shadow-lg transition-shadow"
-                >
-                  <div className="h-12 w-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
-                    {feature.icon}
-                  </div>
-                  <h3 className="text-xl font-semibold mb-2">
-                    {feature.title}
-                  </h3>
-                  <p className="text-gray-600">{feature.description}</p>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </section>
-
         {/* Pricing Section */}
         <section className="py-20 grainy-gradient font-primary">
           <div className="container mx-auto px-4">
@@ -228,28 +202,10 @@ export default function Home() {
           </div>
         </section>
 
-        {/* CTA Section */}
-        <section className="bg-blue-50 py-20">
-          <div className="container mx-auto px-4 text-center">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              className="max-w-2xl mx-auto"
-            >
-              <h2 className="text-3xl font-bold mb-6">
-                Ready to Start Your Trading Journey?
-              </h2>
-              <p className="text-xl text-gray-600 mb-8">
-                Join thousands of successful traders who trust Stoxii
-              </p>
-              <Link href="/register" className="btn-primary">
-                Get Started Now
-              </Link>
-            </motion.div>
-          </div>
-        </section>
+        <FaqSection />
+        <EmailSubscribeSection />
       </main>
+      <Footer />
     </>
   );
 }
