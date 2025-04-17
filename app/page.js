@@ -6,6 +6,7 @@ import Navbar from "@/components/Navbar";
 import { FlickeringGrid } from "@/components/magicui/flickering-grid";
 import AppPreviewSection from "@/components/sections/AppPreviewSection";
 import AnalystSection from "@/components/sections/AnalystSection";
+import ValuePropositionSection from "@/components/sections/ValuePropositionSection";
 
 // Add these animation variants
 const backgroundAnimation = {
@@ -157,45 +158,7 @@ export default function Home() {
         {/* Analyst Section */}
         <AnalystSection />
 
-        {/* Value Proposition Section */}
-        <section className="py-24 bg-white">
-          <div className="container mx-auto px-4">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              className="text-center max-w-3xl mx-auto mb-16"
-            >
-              <h2 className="text-4xl font-bold mb-4">
-                Maximize Your Potential with Stoxii
-              </h2>
-              <p className="text-xl text-gray-600">
-                Equipping Traders and Investors with Expert and Powerful Tools
-                for Smarter Decisions!
-              </p>
-            </motion.div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-              {featureCards.map((card, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="bg-white p-6 rounded-xl border border-gray-100 hover:border-blue-100 transition-all duration-300"
-                >
-                  <div className="bg-blue-50 w-14 h-14 rounded-xl flex items-center justify-center mb-6">
-                    {card.icon}
-                  </div>
-                  <h3 className="text-xl font-semibold mb-3">{card.title}</h3>
-                  <p className="text-gray-600 leading-relaxed">
-                    {card.description}
-                  </p>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </section>
+        <ValuePropositionSection featureCards={featureCards} />
 
         {/* Features Section */}
         <section className="bg-white py-20">
