@@ -5,6 +5,7 @@ import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import { FlickeringGrid } from "@/components/magicui/flickering-grid";
 import AppPreviewSection from "@/components/sections/AppPreviewSection";
+import AnalystSection from "@/components/sections/AnalystSection";
 
 // Add these animation variants
 const backgroundAnimation = {
@@ -152,6 +153,9 @@ export default function Home() {
 
         {/* App Preview Section */}
         <AppPreviewSection />
+
+        {/* Analyst Section */}
+        <AnalystSection />
 
         {/* Value Proposition Section */}
         <section className="py-24 bg-white">

@@ -1,6 +1,8 @@
 "use client";
 import { motion } from "framer-motion";
 import Iphone15Pro from "../magicui/iphone-15-pro";
+import { DotPattern } from "../magicui/dot-pattern";
+import { cn } from "@/lib/utils";
 
 const features = [
   {
@@ -127,48 +129,65 @@ const features = [
 
 export default function AppPreviewSection() {
   return (
-    <section className="py-20 bg-gradient-to-b from-white to-gray-50">
-      <div className="container mx-auto px-4">
+    <section className="relative py-16 md:py-20 overflow-hidden">
+      {/* Background Pattern with adjusted mask */}
+      <DotPattern
+        className={cn(
+          "absolute inset-0 opacity-30",
+          "[mask-image:radial-gradient(800px_circle_at_50%_40%,white,transparent)]"
+        )}
+      />
+
+      <div className="container relative mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="text-center max-w-3xl mx-auto mb-16"
+          className="text-center max-w-2xl mx-auto mb-12"
         >
-          <h2 className="text-4xl font-bold mb-4">Discover Stocks</h2>
-          <p className="text-xl text-gray-600">
+          <h2 className="text-3xl md:text-4xl font-bold mb-3">
+            Discover Stocks
+          </h2>
+          <p className="text-lg text-gray-600">
             Track, share, and grow with ease and precision.
           </p>
         </motion.div>
 
-        <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
+        <div className="flex flex-col lg:flex-row items-center justify-center gap-8 xl:gap-16 max-w-6xl mx-auto">
           {/* iPhone Preview */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5 }}
-            className="relative w-[280px] h-[580px] lg:sticky lg:top-20"
+            className="relative w-[260px] h-[540px] lg:w-[280px] lg:h-[580px] shrink-0"
           >
-            <Iphone15Pro className="w-full h-full" src="/images/andr.jpg" />
+            <div className="sticky top-24 w-full h-full">
+              <Iphone15Pro
+                className="w-full h-full drop-shadow-xl"
+                src="/images/andr.jpg"
+              />
+            </div>
           </motion.div>
 
-          {/* Feature Cards */}
-          <div className="flex-1 grid grid-cols-1 md:grid-cols-2 gap-6 lg:max-w-2xl">
+          {/* Feature Cards Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-6 w-full max-w-2xl">
             {features.map((feature, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="bg-white p-6 rounded-xl border border-gray-100 hover:border-blue-100 transition-all duration-300"
+                className="bg-white/80 backdrop-blur-sm p-4 lg:p-5 rounded-xl border border-gray-100/50 hover:border-blue-100/50 transition-all duration-300 flex gap-4"
               >
-                <div className="bg-blue-50 w-12 h-12 rounded-xl flex items-center justify-center mb-4">
+                <div className="bg-blue-50/50 w-10 h-10 rounded-lg flex items-center justify-center shrink-0">
                   {feature.icon}
                 </div>
-                <h3 className="text-xl font-semibold mb-3">{feature.title}</h3>
-                <p className="text-gray-600 leading-relaxed">
-                  {feature.description}
-                </p>
+                <div className="space-y-1">
+                  <h3 className="text-lg font-semibold">{feature.title}</h3>
+                  <p className="text-sm text-gray-600 leading-relaxed">
+                    {feature.description}
+                  </p>
+                </div>
               </motion.div>
             ))}
           </div>

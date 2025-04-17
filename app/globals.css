@@ -7,15 +7,15 @@
   :root {
     --background: 0 0% 100%;
     --foreground: 240 10% 3.9%;
-    --primary: 240 5.9% 10%;
-    --primary-hover: #1d4ed8;
+    --primary: 221 83% 53%; /* Adjusted for blue-500 */
+    --primary-hover: #0e3294;
     --accent: 240 4.8% 95.9%;
     --muted: 240 4.8% 95.9%;
     --card: 0 0% 100%;
     --card-foreground: 240 10% 3.9%;
     --popover: 0 0% 100%;
     --popover-foreground: 240 10% 3.9%;
-    --primary-foreground: 0 0% 98%;
+    --primary-foreground: 210 40% 98%;
     --secondary: 240 4.8% 95.9%;
     --secondary-foreground: 240 5.9% 10%;
     --muted-foreground: 240 3.8% 46.1%;
@@ -67,15 +67,17 @@
 
 @layer components {
   .btn-primary {
-    @apply px-6 py-3 bg-[var(--primary)] text-white font-semibold rounded-lg
-           transition-all duration-300 hover:bg-[var(--primary-hover)]
-           active:scale-[0.98] hover:-translate-y-0.5;
+    @apply px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg
+           transition-all duration-300 hover:bg-blue-800
+           active:scale-[0.98] hover:-translate-y-0.5
+           shadow-sm hover:shadow-md;
   }
 
   .btn-secondary {
     @apply px-6 py-3 bg-gray-100 text-gray-900 font-semibold rounded-lg
            transition-all duration-300 hover:bg-gray-200
-           active:scale-[0.98] hover:-translate-y-0.5;
+           active:scale-[0.98] hover:-translate-y-0.5
+           shadow-sm hover:shadow-md;
   }
 
   .container {
