@@ -1,10 +1,22 @@
 "use client";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { useAuth } from "@/context/AuthContext";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function Navbar() {
+  const { user, isAuthenticated } = useAuth();
+  const router = useRouter();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  // Get user initials for avatar
+  const getInitials = () => {
+    if (!user?.firstName) return "U";
+    return `${user.firstName.charAt(0)}${
+      user.lastName ? user.lastName.charAt(0) : ""
+    }`;
+  };
 
   return (
     <motion.nav
@@ -48,11 +60,28 @@ export default function Navbar() {
             </div>
           </div>
 
-          {/* Download Button */}
+          {/* Right side buttons */}
           <div className="flex items-center gap-4">
+            {!isAuthenticated ? (
+              <Link
+                href="/auth"
+                className="px-4 py-2 bg-blue-50 text-blue-600 rounded-lg hover:bg-blue-100 transition-colors"
+              >
+                Start Now
+              </Link>
+            ) : (
+              <div className="flex items-center gap-3">
+                <Link
+                  href="/dashboard"
+                  className="w-8 h-8 flex items-center justify-center rounded-full bg-blue-600 text-white font-medium hover:bg-blue-700 transition-colors"
+                >
+                  {getInitials()}
+                </Link>
+              </div>
+            )}
             <Link
               href="/download"
-              className="btn-primary flex items-center gap-2 text-sm"
+              className="btn-primary flex items-center gap-2"
             >
               <span>Download App</span>
               <svg
