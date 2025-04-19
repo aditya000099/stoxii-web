@@ -94,7 +94,7 @@ export default function DashboardPage() {
                       {course.progress.totalChapters} chapters
                     </span>
                     <Link
-                      href={`/dashboard/course/${course._id}`}
+                      href={`/dashboard/courses/${course._id}`}
                       className="text-blue-600 hover:text-blue-700 font-medium"
                     >
                       Continue Learning →
