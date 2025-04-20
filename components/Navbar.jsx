@@ -57,6 +57,12 @@ export default function Navbar() {
               <button className="text-gray-600 hover:text-gray-900">
                 Get a Callback
               </button>
+              <Link
+                href="/calculators"
+                className="text-blue-900 font-semibold hover:text-gray-900"
+              >
+                Calculators
+              </Link>
             </div>
           </div>
 

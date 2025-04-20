@@ -8,6 +8,7 @@ import {
   BookOpenIcon,
   AcademicCapIcon,
   VideoCameraIcon,
+  CalculatorIcon,
   ArrowLeftIcon,
 } from "@heroicons/react/24/outline";
 
@@ -27,11 +28,6 @@ export default function DashboardLayout({ children }) {
     {
       name: "Courses",
       href: "/dashboard/video-courses",
-      icon: VideoCameraIcon,
-    },
-    {
-      name: "Calculators",
-      href: "/dashboard/calculators",
       icon: VideoCameraIcon,
     },
   ];

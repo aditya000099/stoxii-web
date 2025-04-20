@@ -10,6 +10,7 @@ import ValuePropositionSection from "@/components/sections/ValuePropositionSecti
 import EmailSubscribeSection from "@/components/sections/EmailSubscribeSection";
 import Footer from "@/components/Footer";
 import FaqSection from "@/components/sections/FaqSection";
+import Script from "next/script";
 
 // Add these animation variants
 const backgroundAnimation = {
@@ -27,6 +28,10 @@ const backgroundAnimation = {
 export default function Home() {
   return (
     <>
+    <Script
+        src="https://mercury.phonepe.com/web/bundle/checkout.js"
+        strategy="afterInteractive"
+      />
       <Navbar />
       <main className="min-h-screen overflow-x-hidden">
         {/* Hero Section */}

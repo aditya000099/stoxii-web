@@ -1,18 +1,23 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-export default function CagrCalculator() {
-  const [startValue, setStartValue] = useState(10000);
-  const [endValue, setEndValue] = useState(20000);
+export default function CAGRCalculator() {
+  const [initialValue, setInitialValue] = useState(100000);
+  const [finalValue, setFinalValue] = useState(200000);
   const [years, setYears] = useState(5);
-  const [cagr, setCagr] = useState(null);
+  const [cagr, setCagr] = useState(0);
 
-  const calculateCAGR = () => {
-    const result = (
-      (Math.pow(endValue / startValue, 1 / years) - 1) *
-      100
-    ).toFixed(2);
-    setCagr(result);
-  };
+  useEffect(() => {
+    const calculateCAGR = () => {
+      if (initialValue > 0 && finalValue > 0 && years > 0) {
+        const result =
+          (Math.pow(finalValue / initialValue, 1 / years) - 1) * 100;
+        setCagr(result.toFixed(2));
+      } else {
+        setCagr(0);
+      }
+    };
+    calculateCAGR();
+  }, [initialValue, finalValue, years]);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-100 to-white text-blue-900 p-4">
@@ -25,9 +30,18 @@ export default function CagrCalculator() {
           <label className="block mb-1 font-medium">Initial Value (₹)</label>
           <input
             type="number"
-            value={startValue}
-            onChange={(e) => setStartValue(+e.target.value)}
-            className="w-full p-2 rounded-md border border-blue-300 focus:ring-2 focus:ring-blue-500"
+            value={initialValue}
+            onChange={(e) => setInitialValue(+e.target.value)}
+            className="w-full mt-1 border border-blue-200 rounded-md p-1"
+          />
+          <input
+            type="range"
+            min="1000"
+            max="10000000"
+            step="1000"
+            value={initialValue}
+            onChange={(e) => setInitialValue(+e.target.value)}
+            className="w-full mt-2"
           />
         </div>
 
@@ -35,37 +49,43 @@ export default function CagrCalculator() {
           <label className="block mb-1 font-medium">Final Value (₹)</label>
           <input
             type="number"
-            value={endValue}
-            onChange={(e) => setEndValue(+e.target.value)}
-            className="w-full p-2 rounded-md border border-blue-300 focus:ring-2 focus:ring-blue-500"
+            value={finalValue}
+            onChange={(e) => setFinalValue(+e.target.value)}
+            className="w-full mt-1 border border-blue-200 rounded-md p-1"
+          />
+          <input
+            type="range"
+            min="1000"
+            max="10000000"
+            step="1000"
+            value={finalValue}
+            onChange={(e) => setFinalValue(+e.target.value)}
+            className="w-full mt-2"
           />
         </div>
 
         <div className="mb-6">
-          <label className="block mb-1 font-medium">
-            Investment Duration (Years)
-          </label>
+          <label className="block mb-1 font-medium">Number of Years</label>
           <input
             type="number"
             value={years}
             onChange={(e) => setYears(+e.target.value)}
-            className="w-full p-2 rounded-md border border-blue-300 focus:ring-2 focus:ring-blue-500"
+            className="w-full mt-1 border border-blue-200 rounded-md p-1"
+          />
+          <input
+            type="range"
+            min="1"
+            max="50"
+            value={years}
+            onChange={(e) => setYears(+e.target.value)}
+            className="w-full mt-2"
           />
         </div>
 
-        <button
-          onClick={calculateCAGR}
-          className="w-full bg-blue-500 hover:bg-blue-600 text-white py-2 rounded-md font-medium transition"
-        >
-          Calculate
-        </button>
-
-        {cagr && (
-          <div className="mt-6 text-center">
-            <p className="text-lg font-semibold">CAGR:</p>
-            <p className="text-2xl text-blue-600 font-bold mt-1">{cagr}%</p>
-          </div>
-        )}
+        <div className="mt-6 text-center">
+          <p className="text-lg font-semibold">CAGR:</p>
+          <p className="text-2xl text-blue-600 font-bold mt-1">{cagr}%</p>
+        </div>
       </div>
     </div>
   );
