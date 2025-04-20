@@ -69,14 +69,11 @@ export default function CoursePageClient({ courseId }) {
 
   const handleChapterClick = (chapter) => {
     console.log("Chapter data:", chapter); // Debug chapter object
-    const pdfFileName =
-      chapter.pdf ||
-      chapter.pdfUrl ||
-      chapter.file ||
-      `chapter-${chapter._id}.pdf`;
-    const pdfUrl = `https://api.stoxii.com/uploads/courses/${courseId}/chapters/${pdfFileName}`;
-    console.log("PDF URL:", pdfUrl); // Debug final URL
-    window.open(pdfUrl, "_blank");
+    if (chapter.pdfPath) {
+      const pdfUrl = `https://api.stoxii.com/${chapter.pdfPath}`;
+      console.log("PDF URL:", pdfUrl); // Debug final URL
+      window.open(pdfUrl, "_blank");
+    }
   };
 
   return (

@@ -6,6 +6,8 @@ import Link from "next/link";
 import {
   UserCircleIcon,
   BookOpenIcon,
+  AcademicCapIcon,
+  VideoCameraIcon,
   ArrowLeftIcon,
 } from "@heroicons/react/24/outline";
 
@@ -21,7 +23,17 @@ export default function DashboardLayout({ children }) {
 
   const navigation = [
     { name: "Profile", href: "/dashboard/profile", icon: UserCircleIcon },
-    { name: "Courses", href: "/dashboard", icon: BookOpenIcon },
+    { name: "Learn", href: "/dashboard", icon: BookOpenIcon },
+    {
+      name: "Courses",
+      href: "/dashboard/video-courses",
+      icon: VideoCameraIcon,
+    },
+    {
+      name: "Calculators",
+      href: "/dashboard/calculators",
+      icon: VideoCameraIcon,
+    },
   ];
 
   return (
