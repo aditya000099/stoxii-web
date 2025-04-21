@@ -27,6 +27,12 @@ const backgroundAnimation = {
 };
 
 export default function Home() {
+  // Static previews for landing page courses
+  const coursePreviews = [
+    { title: "Technical Analysis Fundamentals", description: "Master chart patterns, indicators & trend analysis." },
+    { title: "Advanced Swing Trading", description: "Develop strategies to capitalize on market swings." },
+    { title: "Risk & Portfolio Management", description: "Learn to protect and grow your capital effectively." },
+  ];
   return (
     <>
     <Script
@@ -171,6 +177,25 @@ export default function Home() {
         <ValuePropositionSection featureCards={featureCards} />
           {/* Financial Calculators Section */}
           <FinancialCalculatorsSection />
+
+        {/* Courses Section */}
+        <section className="py-20 bg-white">
+          <div className="container mx-auto px-4 text-center">
+            <h2 className="text-3xl font-bold mb-4">Our Courses</h2>
+            <p className="text-gray-600 mb-4">Build your skills with our curated video courses.</p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 mt-8 text-left">
+              {coursePreviews.map((course, idx) => (
+                <div key={idx} className="p-6 bg-gray-50 rounded-lg shadow hover:shadow-lg transition">
+                  <h3 className="text-xl font-semibold mb-2">{course.title}</h3>
+                  <p className="text-gray-600">{course.description}</p>
+                </div>
+              ))}
+            </div>
+            <Link href="/dashboard/courses">
+              <button className="btn-primary mt-8">Browse All Courses</button>
+            </Link>
+          </div>
+        </section>
 
         {/* Pricing Section */}
         <section className="py-20 grainy-gradient font-primary">
