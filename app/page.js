@@ -11,6 +11,7 @@ import EmailSubscribeSection from "@/components/sections/EmailSubscribeSection";
 import Footer from "@/components/Footer";
 import FaqSection from "@/components/sections/FaqSection";
 import Script from "next/script";
+import FinancialCalculatorsSection from "@/components/FinancialCalculatorsSection";
 
 // Add these animation variants
 const backgroundAnimation = {
@@ -55,6 +56,7 @@ export default function Home() {
           </div>
 
           <div className="container relative mx-auto px-4 w-full">
+          
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -167,6 +169,8 @@ export default function Home() {
         <AnalystSection />
 
         <ValuePropositionSection featureCards={featureCards} />
+          {/* Financial Calculators Section */}
+          <FinancialCalculatorsSection />
 
         {/* Pricing Section */}
         <section className="py-20 grainy-gradient font-primary">
