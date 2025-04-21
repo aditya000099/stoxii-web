@@ -12,48 +12,73 @@ import { API_URL } from "@/lib/auth";
 import toast from "react-hot-toast";
 import Cookies from "js-cookie";
 
-export default function VideoCourseClientPage({ courseId }) {
+import { use } from "react";
+
+export default function VideoCourseClientPage({ params }) {
+  const actualParams = use(params);
+  console.log("[VideoCourseClientPage] params:", actualParams);
+  const courseId = actualParams.courseId;
+  console.log("[VideoCourseClientPage] courseId:", courseId);
   const { user } = useAuth();
   const [course, setCourse] = useState(null);
   const [loading, setLoading] = useState(true);
   const [hasPurchased, setHasPurchased] = useState(false);
   const [purchaseLoading, setPurchaseLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     if (courseId) {
-      console.log("Fetching course:", courseId); // Debug log
+      console.log("[VideoCourseClientPage] Fetching course:", courseId);
       fetchCourseDetails();
     }
   }, [courseId]);
 
   const fetchCourseDetails = async () => {
     try {
+      console.log("[VideoCourseClientPage] fetchCourseDetails called");
+      setError(null);
       const token = Cookies.get("token");
-      const response = await fetch(
-        `${API_URL}/video-course/single/${courseId}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const apiUrl = `${API_URL}/video-course/single/${courseId}`;
+      console.log("[VideoCourseClientPage] About to fetch:", apiUrl, "with token:", token);
+      const response = await fetch(apiUrl, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
+      console.log("[VideoCourseClientPage] Fetch complete. Response status:", response.status);
 
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        setError(`Failed to load course. Status: ${response.status}`);
+        console.log("[VideoCourseClientPage] Response not ok, error set:", `Failed to load course. Status: ${response.status}`);
+        return;
       }
 
-      const data = await response.json();
-      if (data.success) {
-        console.log("Course data:", data); // Debug log
+      let data;
+      try {
+        data = await response.json();
+        console.log("[VideoCourseClientPage] JSON parsed:", data);
+      } catch (jsonErr) {
+        setError("Failed to parse backend response as JSON");
+        console.error("[VideoCourseClientPage] JSON parse error:", jsonErr);
+        return;
+      }
+      if (data.success && data.course) {
         setCourse(data.course);
         setHasPurchased(data.hasPurchased);
+        setError(null);
+        console.log("[VideoCourseClientPage] Course loaded and state set:", data.course);
+      } else {
+        setError("Course not found or API error.");
+        console.log("[VideoCourseClientPage] API error or course not found. Data:", data);
       }
     } catch (error) {
-      console.error("Error fetching course:", error);
+      setError("An error occurred while fetching the course.");
+      console.error("[VideoCourseClientPage] Error fetching course:", error);
       toast.error("Error fetching course details");
     } finally {
       setLoading(false);
+      console.log("[VideoCourseClientPage] Loading state set to false");
     }
   };
 
@@ -122,14 +147,6 @@ export default function VideoCourseClientPage({ courseId }) {
     }
   };
 
-  if (loading)
-    return (
-      <DashboardLayout>
-        <div className="text-center py-10">Loading...</div>
-      </DashboardLayout>
-    );
-
-  // Check for payment status in URL
   const [paymentStatus, setPaymentStatus] = useState(null);
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -138,6 +155,15 @@ export default function VideoCourseClientPage({ courseId }) {
       if (payment) setPaymentStatus(payment);
     }
   }, []);
+
+  if (loading) {
+    console.log("[VideoCourseClientPage] Still loading...");
+    return (
+      <DashboardLayout>
+        <div className="text-center py-10">Loading...</div>
+      </DashboardLayout>
+    );
+  }
 
   return (
     <DashboardLayout>
@@ -184,8 +210,7 @@ export default function VideoCourseClientPage({ courseId }) {
                     {course?.chapters?.reduce(
                       (acc, ch) => acc + (ch.duration || 0),
                       0
-                    )}{" "}
-                    minutes total
+                    )} minutes total
                   </span>
                 </div>
               </div>
@@ -222,6 +247,24 @@ export default function VideoCourseClientPage({ courseId }) {
                     Purchase this course to access all chapters and materials.
                   </p>
                 </div>
+                {course.chapters && Array.isArray(course.chapters) && course.chapters.length > 0 && (
+                  <div className="mt-8">
+                    <h2 className="text-xl font-bold mb-4">Chapters</h2>
+                    <ul className="space-y-4">
+                      {course.chapters.map((chapter, idx) => (
+                        <li key={chapter._id || idx} className="p-4 bg-gray-100 rounded-md">
+                          <div className="font-semibold text-lg">{chapter.title || `Chapter ${idx + 1}`}</div>
+                          {chapter.description && (
+                            <div className="text-gray-700 mt-1">{chapter.description}</div>
+                          )}
+                          {chapter.duration && (
+                            <div className="text-gray-500 mt-1 text-sm">Duration: {chapter.duration}</div>
+                          )}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
               </div>
             )}
           </div>
