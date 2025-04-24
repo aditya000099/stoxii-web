@@ -62,12 +62,12 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/terms" className="hover:text-blue-600">
+                <Link href="/terms-and-conditions" className="hover:text-blue-600">
                   Terms & Condition
                 </Link>
               </li>
               <li>
-                <Link href="/privacy" className="hover:text-blue-600">
+                <Link href="/privacy-policy" className="hover:text-blue-600">
                   Privacy Policy
                 </Link>
               </li>
@@ -147,6 +147,7 @@ export default function Footer() {
             performance of the intermediary or provide any assurance of returns
             to investors
           </p>
+          <p>Charts are powered by <a className="text-blue-600" href="https://www.tradingview.com/" target="_blank" rel="noopener noreferrer">TradingView.</a></p>
         </div>
       </div>
     </footer>

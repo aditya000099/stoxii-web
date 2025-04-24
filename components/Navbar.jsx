@@ -71,7 +71,7 @@ export default function Navbar() {
             {!isAuthenticated ? (
               <Link
                 href="/auth"
-                className="px-4 py-2 bg-blue-50 text-blue-600 rounded-lg hover:bg-blue-100 transition-colors"
+                className="px-4 py-2 bg-zinc-50 font-medium text-zinc-800 rounded-lg hover:bg-zinc-100 transition-colors"
               >
                 Start Now
               </Link>
@@ -87,10 +87,10 @@ export default function Navbar() {
             )}
             <Link
               href="/download"
-              className="btn-primary flex items-center gap-2"
+              className="btn-primary bg-zinc-900 hover:bg-zinc-800 flex items-center gap-2"
             >
               <span>Download App</span>
-              <svg
+              {/* <svg
                 className="w-4 h-4"
                 fill="none"
                 viewBox="0 0 24 24"
@@ -102,7 +102,7 @@ export default function Navbar() {
                   strokeWidth={2}
                   d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
                 />
-              </svg>
+              </svg> */}
             </Link>
 
             {/* Mobile Menu Button */}
