@@ -20,12 +20,22 @@ export function AuthProvider({ children }) {
     setLoading(false);
   }, []);
 
+  // Logout function
+  const logout = () => {
+    Cookies.remove("token");
+    localStorage.removeItem("user");
+    setUser(null);
+    router.push("/auth");
+  };
+
   const value = {
     user,
     setUser,
     loading,
     isAuthenticated: !!user,
+    logout,
   };
+
 
   return (
     <AuthContext.Provider value={value}>

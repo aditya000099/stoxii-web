@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 
 export default function ProfilePage() {
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState({
     firstName: user?.firstName || "",
@@ -156,6 +156,15 @@ export default function ProfilePage() {
             </span>
           </div>
         </motion.div>
+      </div>
+      {/* Logout Button */}
+      <div className="mt-10 flex justify-center">
+        <button
+          onClick={logout}
+          className="px-6 py-2 bg-red-600 text-white font-semibold rounded-lg shadow hover:bg-red-700 transition-colors"
+        >
+          Logout
+        </button>
       </div>
     </DashboardLayout>
   );
